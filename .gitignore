@@ -1,0 +1,7 @@
+# Arquivos do .NET
+back/bin/
+back/obj/
+back/.vs/
+back/*.db
+back/appsettings.*
+
