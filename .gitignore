@@ -1,7 +1,14 @@
-# Arquivos do .NET
-back/bin/
-back/obj/
-back/.vs/
-back/*.db
-back/appsettings.*
+# Arquivos do .NET na pasta back/SuperizaAPI
+back/SuperizaAPI/bin/
+back/SuperizaAPI/obj/
+back/SuperizaAPI/.vs/
+back/SuperizaAPI/*.db
+back/SuperizaAPI/appsettings.*
+
+# Ignorar arquivos do sistema
+.DS_Store
+.idea/
+
+# Ignorar arquivos de build do .NET no diretório raiz
+# (Se necessário, você pode manter, mas no caso de especificar a pasta 'back/SuperizaAPI', não seria necessário)
 
