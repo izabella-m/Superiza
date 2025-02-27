@@ -1,4 +1,16 @@
+using Microsoft.EntityFrameworkCore;
+using SuperizaAPI.Data;
+using SuperizaAPI.Services.Fornecedor;
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddScoped<IFornecedorInterface, FornecedorService>();
+
+// Configurar o DbContext com SQLite
+builder.Services.AddDbContext<AppDbContext>(options =>
+{
+    options.UseSqlite("Data Source=SuperizaControl.db");
+});
 
 // Adicionar os serviços de Controllers
 builder.Services.AddControllers();
