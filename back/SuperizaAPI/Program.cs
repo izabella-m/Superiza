@@ -1,10 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using SuperizaAPI.Data;
 using SuperizaAPI.Services.Fornecedor;
+using SuperizaAPI.Services.Produto;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddScoped<IFornecedorInterface, FornecedorService>();
+builder.Services.AddScoped<IProdutoInterface, ProdutoService>();
 
 // Configurar o DbContext com SQLite
 builder.Services.AddDbContext<AppDbContext>(options =>
