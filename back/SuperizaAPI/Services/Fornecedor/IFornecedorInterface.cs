@@ -4,8 +4,7 @@ namespace SuperizaAPI.Services.Fornecedor;
 
 public interface IFornecedorInterface
 {
-    Task<ResponseModel<List<FornecedorModel>>> BuscarFornecedores();
-    Task<ResponseModel<FornecedorModel>> BuscarFornecedoresPorId(int idFornecedor);
+    Task<ResponseModel<List<FornecedorModel>>> ListarFornecedores();
     Task<ResponseModel<FornecedorModel>> CriarFornecedores();
     Task<ResponseModel<FornecedorModel>> DeletarFornecedores();
 
