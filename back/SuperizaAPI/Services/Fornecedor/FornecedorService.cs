@@ -62,8 +62,63 @@ public class FornecedorService : IFornecedorInterface
         }
     }
 
-    public Task<ResponseModel<FornecedorModel>> DeletarFornecedores()
+    public async Task<ResponseModel<List<FornecedorModel>>> EditarFornecedores(FornecedorEdicaoDto fornecedorEdicaoDto)
     {
-        throw new NotImplementedException();
+        ResponseModel<List<FornecedorModel>> resposta = new ResponseModel<List<FornecedorModel>>();
+
+        try
+        {
+            var fornecedor = await _context.Fornecedores.FirstOrDefaultAsync(fornecedorBanco => fornecedorBanco.Id == fornecedorEdicaoDto.Id);
+            if (fornecedor == null)
+            {
+                resposta.Mensagem = "Nenhum fornecedor encontrado";
+                return resposta;
+            }
+            
+            fornecedor.Contato = fornecedorEdicaoDto.Contato;
+            
+            _context.Update(fornecedor);
+            await _context.SaveChangesAsync();
+            
+            resposta.Dados = await _context.Fornecedores.ToListAsync();
+            resposta.Mensagem = "Fornecedor editado com sucesso";
+            
+            return resposta;
+        }
+        catch (Exception e)
+        {
+            resposta.Mensagem = e.Message;
+            resposta.Status = false;
+            return resposta;
+        }
     }
+
+    public async Task<ResponseModel<List<FornecedorModel>>> DeletarFornecedores(int idFornecedor)
+    {
+        ResponseModel<List<FornecedorModel>> resposta = new ResponseModel<List<FornecedorModel>>();
+
+        try
+        {
+            var fornecedor = await _context.Fornecedores.FirstOrDefaultAsync(fornecedorBanco => fornecedorBanco.Id == idFornecedor);
+            if (fornecedor == null)
+            {
+                resposta.Mensagem = "Nenhum fornecedor encontrado";
+                return resposta;
+            }
+            
+            _context.Remove(fornecedor);
+            await _context.SaveChangesAsync();
+            
+            resposta.Dados = await _context.Fornecedores.ToListAsync();
+            resposta.Mensagem = "Fornecedor deletado com sucesso";
+            return resposta;
+        }
+        catch (Exception e)
+        {
+            resposta.Mensagem = e.Message;
+            resposta.Status = false;
+            return resposta;
+        }
+    }
+    
 }

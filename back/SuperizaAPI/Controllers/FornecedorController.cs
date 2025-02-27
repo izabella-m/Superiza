@@ -30,5 +30,18 @@ namespace SuperizaAPI.Controllers
             return Ok(fornecedores);
         }
         
+        [HttpPut("EditarFornecedores")]
+        public async Task<ActionResult<ResponseModel<List<FornecedorModel>>>> EditarFornecedores(FornecedorEdicaoDto fornecedorEdicaoDto)
+        {
+            var fornecedores = await _fornecedorInterface.EditarFornecedores(fornecedorEdicaoDto);
+            return Ok(fornecedores);
+        }   
+        
+        [HttpDelete("DeletarFornecedores")]
+        public async Task<ActionResult<ResponseModel<List<FornecedorModel>>>> DeletarFornecedores(int idFornecedores)
+        {
+            var fornecedores = await _fornecedorInterface.DeletarFornecedores(idFornecedores);
+            return Ok(fornecedores);
+        } 
     }
 }
