@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using SuperizaAPI.Data;
+using SuperizaAPI.Dto;
 using SuperizaAPI.Models;
 
 namespace SuperizaAPI.Services.Fornecedor;
@@ -14,8 +15,7 @@ public class FornecedorService : IFornecedorInterface
         _context = context;
     }
 
-
-    public async Task<ResponseModel<List<FornecedorModel>>> BuscarFornecedores()
+    public async Task<ResponseModel<List<FornecedorModel>>> ListarFornecedores()
     {
         ResponseModel<List<FornecedorModel>> resposta = new ResponseModel<List<FornecedorModel>>();
         try
@@ -34,15 +34,32 @@ public class FornecedorService : IFornecedorInterface
         return resposta; 
     }
 
-
-    public Task<ResponseModel<FornecedorModel>> BuscarFornecedoresPorId(int idFornecedor)
+    public async Task<ResponseModel<List<FornecedorModel>>> CriarFornecedores(FornecedorCriacaoDto fornecedorCriacaoDto)
     {
-        throw new NotImplementedException();
-    }
+        ResponseModel<List<FornecedorModel>> resposta = new ResponseModel<List<FornecedorModel>>();
 
-    public Task<ResponseModel<FornecedorModel>> CriarFornecedores()
-    {
-        throw new NotImplementedException();
+        try
+        {
+            var fornecedores = new FornecedorModel()
+            {
+                Nome = fornecedorCriacaoDto.Nome,
+                Contato = fornecedorCriacaoDto.Contato,
+            };
+            
+            _context.Add(fornecedores);
+            await _context.SaveChangesAsync();
+            
+            resposta.Dados = await _context.Fornecedores.ToListAsync();
+            resposta.Mensagem = "Fornecedor criado com sucesso";
+            
+            return resposta;
+        }
+        catch (Exception e)
+        {
+            resposta.Mensagem = e.Message;
+            resposta.Status = false;
+            return resposta;
+        }
     }
 
     public Task<ResponseModel<FornecedorModel>> DeletarFornecedores()

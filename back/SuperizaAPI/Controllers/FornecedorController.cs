@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using SuperizaAPI.Dto;
 using SuperizaAPI.Models;
 using SuperizaAPI.Services.Fornecedor;
 
@@ -19,6 +20,13 @@ namespace SuperizaAPI.Controllers
         public async Task<ActionResult<ResponseModel<List<FornecedorModel>>>> ListarFornecedores()
         {
             var fornecedores = await _fornecedorInterface.ListarFornecedores();
+            return Ok(fornecedores);
+        }
+
+        [HttpPost("CriarFornecedores")]
+        public async Task<ActionResult<ResponseModel<FornecedorModel>>> CriarFornecedores(FornecedorCriacaoDto fornecedorCriacaoDto)
+        {
+            var fornecedores = await _fornecedorInterface.CriarFornecedores(fornecedorCriacaoDto);
             return Ok(fornecedores);
         }
         
