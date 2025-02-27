@@ -15,10 +15,10 @@ namespace SuperizaAPI.Controllers
             _fornecedorInterface = fornecedorInterface;
         }
 
-        [HttpGet("BuscarFornecedores")]
-        public async Task<ActionResult<ResponseModel<List<FornecedorModel>>>> BuscarFornecedores()
+        [HttpGet("ListarFornecedores")]
+        public async Task<ActionResult<ResponseModel<List<FornecedorModel>>>> ListarFornecedores()
         {
-            var fornecedores = await _fornecedorInterface.BuscarFornecedores();
+            var fornecedores = await _fornecedorInterface.ListarFornecedores();
             return Ok(fornecedores);
         }
         
