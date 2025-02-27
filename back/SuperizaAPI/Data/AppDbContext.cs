@@ -15,7 +15,6 @@ public class AppDbContext : DbContext
     public DbSet<FornecedorModel> Fornecedores { get; set; }
     public DbSet<ProdutoModel> Produtos { get; set; }
     public DbSet<PedidoModel> Pedidos { get; set; }
-    public DbSet<ItemPedidoModel> ItensPedido { get; set; }
 }
 
 
