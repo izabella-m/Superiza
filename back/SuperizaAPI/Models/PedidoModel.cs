@@ -10,4 +10,10 @@ public class PedidoModel
     public FornecedorModel Fornecedor { get; set; }  // Relacionamento com Fornecedor (sem o "Id")
     
     public string Produtos { get; set; }
+    
+    public PedidoModel()
+    {
+        // Definindo DataPedido para a data e hora atual
+        DataPedido = DateTime.Now;
+    }
 }
