@@ -30,5 +30,13 @@ namespace SuperizaAPI.Controllers
             var produtos = await _produtoInterface.CriarProdutos(produtoCriacaoDto);
             return Ok(produtos);
         }
+        
+        [HttpPut("EditarProdutos")]
+        public async Task<ActionResult<ResponseModel<List<ProdutoModel>>>> EditarProdutos(ProdutoEdicaoDto produtoEdicaoDto)
+        {
+            var produtos = await _produtoInterface.EditarProdutos(produtoEdicaoDto);
+            return Ok(produtos);
+        }  
+        
     }
 }

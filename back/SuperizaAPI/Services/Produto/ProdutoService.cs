@@ -62,4 +62,36 @@ public class ProdutoService : IProdutoInterface
             return resposta;
         }
     }
+    
+    public async Task<ResponseModel<List<ProdutoModel>>> EditarProdutos(ProdutoEdicaoDto produtoEdicaoDto)
+    {
+        ResponseModel<List<ProdutoModel>> resposta = new ResponseModel<List<ProdutoModel>>();
+
+        try
+        {
+            var produto = await _context.Produtos.FirstOrDefaultAsync(fornecedorBanco => fornecedorBanco.Id == produtoEdicaoDto.Id);
+            if (produto == null)
+            {
+                resposta.Mensagem = "Nenhum produto encontrado";
+                return resposta;
+            }
+            
+            produto.QuantidadeEmEstoque = produtoEdicaoDto.QuantidadeEmEstoque;
+            produto.Preco = produtoEdicaoDto.Preco;
+            
+            _context.Update(produto);
+            await _context.SaveChangesAsync();
+            
+            resposta.Dados = await _context.Produtos.ToListAsync();
+            resposta.Mensagem = "Produto editado com sucesso";
+            
+            return resposta;
+        }
+        catch (Exception e)
+        {
+            resposta.Mensagem = e.Message;
+            resposta.Status = false;
+            return resposta;
+        }
+    }
 }
